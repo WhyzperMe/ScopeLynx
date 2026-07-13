@@ -1,0 +1,10 @@
+# Use only with explicit authorization and the authorized-sensitive profile.
+.env
+.env.local
+.git/config
+backup.zip
+backup.sql
+config.json
+config.yml
+server-status
+phpinfo.php

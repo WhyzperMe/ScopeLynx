@@ -1,0 +1,11 @@
+/target/
+/output/
+*.log
+*.tmp
+*.proptest-regressions
+.DS_Store
+.idea/
+.vscode/
+.env
+.env.*
+!example_wordlist/authorized-sensitive.txt

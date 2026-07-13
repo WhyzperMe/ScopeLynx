@@ -1,0 +1,11 @@
+# Common low-impact paths
+admin/
+login
+robots.txt
+sitemap.xml
+api/
+api/v1/
+health
+status
+assets/
+static/
