@@ -18,29 +18,29 @@ name = "scopelynx"
 path = "src/main.rs"
 
 [dependencies]
-chrono = { version = "0.4", features = ["clock", "serde"] }
-clap = { version = "4.5", features = ["derive", "env"] }
-clap_complete = "4.5"
-futures-util = "0.3"
-hex = "0.4"
-regex = "1.11"
+chrono = { version = "0.4.45", features = ["clock", "serde"] }
+clap = { version = "4.5.61", features = ["derive", "env"] }
+clap_complete = "4.6.7"
+futures-util = "0.3.32"
+hex = "0.4.3"
+regex = "1.13.0"
 reqwest = { version = "0.13.4", default-features = false, features = ["brotli", "charset", "deflate", "gzip", "http2", "rustls", "stream"] }
-roxmltree = "0.20"
-scraper = "0.20"
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
-sha2 = "0.10"
-thiserror = "2"
-tokio = { version = "1", features = ["fs", "macros", "net", "rt-multi-thread", "signal", "sync", "time"] }
-toml = "0.8"
-tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt", "json"] }
-url = { version = "2.5", features = ["serde"] }
+roxmltree = "0.21.1"
+scraper = "0.27.0"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.150"
+sha2 = "0.11.0"
+thiserror = "2.0.18"
+tokio = { version = "1.52.3", features = ["fs", "macros", "net", "rt-multi-thread", "signal", "sync", "time"] }
+toml = "1.1.2+spec-1.1.0"
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter", "fmt", "json"] }
+url = { version = "2.5.8", features = ["serde"] }
 
 [dev-dependencies]
-flate2 = "1"
-proptest = "1"
-tempfile = "3"
+flate2 = "1.1.9"
+proptest = "1.11.0"
+tempfile = "3.27.0"
 
 [lints.rust]
 unsafe_code = "forbid"
