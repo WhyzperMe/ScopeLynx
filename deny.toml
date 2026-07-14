@@ -1,14 +1,40 @@
+# Security advisories and withdrawn crate releases
 [advisories]
 version = 2
 yanked = "deny"
 
+# Do not silently keep obsolete advisory exceptions.
+unused-ignored-advisory = "warn"
+
+# Intentionally empty. Add exceptions only with a reason and, ideally,
+# an expiry/removal plan.
+ignore = []
+
+
+# License policy
 [licenses]
 version = 2
+
+# Minimum confidence when cargo-deny identifies licenses from license files.
 confidence-threshold = 0.8
+
+# Check licenses of build dependencies because they can affect generated
+# artifacts and the build process.
+include-build = true
+
+# Dev dependencies are not shipped as part of the normal application.
+# Set this to true if your organization's compliance policy requires it.
+include-dev = false
+
+# Avoid warnings when an allowed license is temporarily not present in the
+# resolved dependency graph.
+unused-allowed-license = "allow"
+
 allow = [
   "Apache-2.0",
   "BSD-2-Clause",
   "BSD-3-Clause",
+  "CDLA-Permissive-2.0",
   "ISC",
   "MIT",
   "MPL-2.0",
@@ -16,10 +42,36 @@ allow = [
   "Zlib",
 ]
 
+
+# Dependency restrictions
 [bans]
+# Duplicate transitive versions are worth reviewing but should not
+# automatically block CI.
 multiple-versions = "warn"
+
+# Reject dependencies such as foo = "*" because builds would not be
+# reproducible.
 wildcards = "deny"
 
+# Highlight the most useful paths when duplicate versions are reported.
+highlight = "all"
+
+# Explicit lists make future policy extensions clearer.
+deny = []
+skip = []
+skip-tree = []
+
+
+# Dependency source restrictions
 [sources]
+# crates.io remains allowed implicitly. Any additional registry is rejected.
 unknown-registry = "deny"
+
+# Reject unapproved Git dependencies.
 unknown-git = "deny"
+
+# Should an approved Git dependency be added later, require it to be pinned
+# to an immutable commit revision instead of a branch or moving tag.
+required-git-spec = "rev"
+
+allow-git = []
