@@ -162,7 +162,7 @@ jobs:
         run: cargo +${{ env.RUST_TOOLCHAIN }} install cargo-audit --version 0.22.2 --locked --force
 
       - name: Install cargo-deny
-        run: cargo +${{ env.RUST_TOOLCHAIN }} install cargo-deny --version 0.20.2 --locked
+        run: cargo +${{ env.RUST_TOOLCHAIN }} install cargo-deny --version 0.20.2 --locked --force
 
       - name: Check security advisories
         run: cargo +${{ env.RUST_TOOLCHAIN }} audit
