@@ -301,17 +301,16 @@ fn collect_json_urls(
                 if output.len() >= limit {
                     return;
                 }
-                if matches!(key.as_str(), "url" | "@id" | "contentUrl" | "embedUrl" | "sameAs") {
-                    if let Some(raw) = nested.as_str() {
-                        if let Some(url) = resolve_http_url(base, raw) {
-                            output.push(DiscoveredUrl {
-                                url,
-                                source: DiscoverySource::HtmlLink,
-                                priority: 110,
-                                relation: "json-ld-url",
-                            });
-                        }
-                    }
+                if matches!(key.as_str(), "url" | "@id" | "contentUrl" | "embedUrl" | "sameAs")
+                    && let Some(raw) = nested.as_str()
+                    && let Some(url) = resolve_http_url(base, raw)
+                {
+                    output.push(DiscoveredUrl {
+                        url,
+                        source: DiscoverySource::HtmlLink,
+                        priority: 110,
+                        relation: "json-ld-url",
+                    });
                 }
                 collect_json_urls(nested, base, limit, output, depth + 1);
             }

@@ -235,37 +235,36 @@ pub async fn run(config: ScanConfig) -> Result<ScanOutcome> {
 
                     if should_discover(&fetched.observation)
                         && task.depth < config.profile.max_depth
+                        && let Some(body) = text.as_deref()
                     {
-                        if let Some(body) = text.as_deref() {
-                            match discover_from_response(
-                                &config,
-                                &fetched.effective_url,
-                                fetched.observation.content_type.as_deref(),
-                                fetched.observation.content_kind,
-                                body,
-                            ) {
-                                Ok(candidates) => {
-                                    for candidate in candidates {
-                                        record_and_enqueue_candidate(
-                                            &mut queue,
-                                            &mut discovered,
-                                            candidate,
-                                            task.depth + 1,
-                                            &config,
-                                            &scope,
-                                            &mut limits,
-                                        );
-                                    }
+                        match discover_from_response(
+                            &config,
+                            &fetched.effective_url,
+                            fetched.observation.content_type.as_deref(),
+                            fetched.observation.content_kind,
+                            body,
+                        ) {
+                            Ok(candidates) => {
+                                for candidate in candidates {
+                                    record_and_enqueue_candidate(
+                                        &mut queue,
+                                        &mut discovered,
+                                        candidate,
+                                        task.depth + 1,
+                                        &config,
+                                        &scope,
+                                        &mut limits,
+                                    );
                                 }
-                                Err(error) => push_error(
-                                    &mut errors,
-                                    &mut limits,
-                                    &config,
-                                    "discovery",
-                                    redact_url(&fetched.effective_url),
-                                    error.to_string(),
-                                ),
                             }
+                            Err(error) => push_error(
+                                &mut errors,
+                                &mut limits,
+                                &config,
+                                "discovery",
+                                redact_url(&fetched.effective_url),
+                                error.to_string(),
+                            ),
                         }
                     }
 

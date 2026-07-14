@@ -87,23 +87,22 @@ pub fn analyze(observation: &Observation, body: &str) -> Vec<Finding> {
             );
         }
 
-        if let Some(action) = form.value().attr("action") {
-            if let Ok(action_url) = observation.final_url.join(action) {
-                if action_url.host_str() != observation.final_url.host_str() {
-                    findings.push(
-                        Finding::new(
-                            FindingKind::Form,
-                            Severity::Medium,
-                            Confidence::High,
-                            "Password form submits cross-origin",
-                            "The password form action targets a different host.",
-                            location,
-                        )
-                        .with_evidence("html.form.action", redact_url(&action_url))
-                        .with_remediation("Verify the external destination and keep credential submission within a trusted origin."),
-                    );
-                }
-            }
+        if let Some(action) = form.value().attr("action")
+            && let Ok(action_url) = observation.final_url.join(action)
+            && action_url.host_str() != observation.final_url.host_str()
+        {
+            findings.push(
+                Finding::new(
+                    FindingKind::Form,
+                    Severity::Medium,
+                    Confidence::High,
+                    "Password form submits cross-origin",
+                    "The password form action targets a different host.",
+                    location,
+                )
+                .with_evidence("html.form.action", redact_url(&action_url))
+                .with_remediation("Verify the external destination and keep credential submission within a trusted origin."),
+            );
         }
     }
     findings

@@ -31,17 +31,16 @@ fn collect(
     match value {
         serde_json::Value::Object(values) => {
             for (key, nested) in values.iter().take(256) {
-                if matches!(key.as_str(), "start_url" | "scope" | "src" | "url" | "action") {
-                    if let Some(raw) = nested.as_str() {
-                        if let Some(url) = resolve_http_url(base, raw) {
-                            output.push(DiscoveredUrl {
-                                url,
-                                source: DiscoverySource::HtmlAsset,
-                                priority: 110,
-                                relation: "manifest-resource",
-                            });
-                        }
-                    }
+                if matches!(key.as_str(), "start_url" | "scope" | "src" | "url" | "action")
+                    && let Some(raw) = nested.as_str()
+                    && let Some(url) = resolve_http_url(base, raw)
+                {
+                    output.push(DiscoveredUrl {
+                        url,
+                        source: DiscoverySource::HtmlAsset,
+                        priority: 110,
+                        relation: "manifest-resource",
+                    });
                 }
                 collect(nested, base, limit, output, depth + 1);
             }
