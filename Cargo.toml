@@ -2,7 +2,7 @@
 name = "scopelynx"
 version = "0.3.2"
 edition = "2024"
-rust-version = "1.85"
+rust-version = "1.93.0"
 description = "Scope-controlled, evidence-driven web vulnerability scanner"
 license = "MIT"
 readme = "README.md"
